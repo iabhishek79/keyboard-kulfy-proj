@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import KulfyKeyboard from 'kulfykeyboard';
+import KulfyKeyboard from './KulfyKeyboard';
 
 function App() {
   return (
