@@ -120,6 +120,19 @@ function MyVerticallyCenteredModal(props) {
       </div>
 
       <Modal.Body className="conceptModel">
+        <Stack direction="horizontal" className="kb-header mb-2 p-2">
+          <Button borderRadius={"md"} className="brand-icon mx-2">
+            <img src="/asd" alt="" width={"30"} height={"30"} />
+          </Button>
+          <input
+            type="text"
+            placeholder="Search..."
+            className="kb-search px-2"
+          />
+          <Button borderRadius={"md"} className="brand-icon mx-2">
+            <img src="/asd" alt="" width={"30"} height={"30"} />
+          </Button>
+        </Stack>
         <Stack direction="horizontal" className="conceptDiv" gap={1}>
           {Concepts.map((concept) => (
             <Button
@@ -129,17 +142,16 @@ function MyVerticallyCenteredModal(props) {
               fontWeight="semibold"
               whiteSpace={"nowrap"}
               minWidth="fit-content"
-              bg="blackAlpha.800"
               color={"white"}
               /*onClick={(e) => getCategories(concept, e)}*/
-              className="tag rounded text-uppercase fw-bold bg-dark border-0  py-2 flex  px-4 me-2  text-white"
+              className="kb-tag rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2  white-space-no-wrap"
             >
               {concept}
             </Button>
           ))}
         </Stack>
 
-        <Stack direction="horizontal" className="conceptPrev" gap={1}>
+        <Stack direction="horizontal" className="conceptPrev my-2" gap={1}>
           {Previews.map((preview) => (
             <img
               width="150px"
@@ -150,7 +162,7 @@ function MyVerticallyCenteredModal(props) {
               onClick={(e) => copyToClip(preview)}
               borderRadius="md"
               objectFit="cover"
-              className="h-48 p-1 w-48 rounded-4 obj-cover"
+              className="h-48 p-1 w-48 rounded-4 obj-cover "
               alt=""
             />
           ))}
@@ -171,11 +183,34 @@ function MyVerticallyCenteredModal(props) {
               bg="blackAlpha.800"
               color={"white"}
               /* onClick={(e) => getKulfys(keyword, "popular", e)}*/
-              className="tag rounded text-uppercase fw-bold bg-dark border-0  py-2 flex  px-4 me-2  text-white"
+              className="kb-tag rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2 white-space-no-wrap"
             >
               {keyword}
             </Button>
           ))}
+        </Stack>
+        <Stack
+          direction="horizontal"
+          className="kb-header mb-2 p-2 justify-content-between"
+        >
+          <div>
+            <Button borderRadius={"md"} className="brand-icon mx-2">
+              <img src="/asd" alt="" width={"30"} height={"30"} />
+            </Button>
+            <Button borderRadius={"md"} className="brand-icon mx-2">
+              <img src="/asd" alt="" width={"30"} height={"30"} />
+            </Button>
+            <Button borderRadius={"md"} className="brand-icon mx-2">
+              <img src="/asd" alt="" width={"30"} height={"30"} />
+            </Button>
+            <Button borderRadius={"md"} className="brand-icon mx-2">
+              <img src="/asd" alt="" width={"30"} height={"30"} />
+            </Button>
+          </div>
+          <Stack direction="horizontal" className=" align-items-center">
+            <p className="text-white kb-poweredby">Powered by</p>
+            <img src="/asd" alt="" width={"100"} height={"30"} />
+          </Stack>
         </Stack>
       </Modal.Body>
     </Modal>
