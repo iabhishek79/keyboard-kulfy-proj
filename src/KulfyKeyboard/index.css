@@ -32,7 +32,7 @@
     margin-top: 10px;
   }
   .conceptDiv{
-    height: 70px;
+    /* height: 70px; */
     overflow-x: scroll ;
     overflow-y: hidden;
   }
@@ -42,3 +42,10 @@
     overflow-y: hidden;
     cursor:pointer
   }
+.obj-cover{
+  object-fit: cover;
+  /* height: 150px; */
+}
+.white-space-no-wrap{
+  white-space: nowrap;
+}
