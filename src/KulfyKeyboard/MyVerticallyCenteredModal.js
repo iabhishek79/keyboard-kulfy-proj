@@ -120,17 +120,17 @@ function MyVerticallyCenteredModal(props) {
       </div>
 
       <Modal.Body className="conceptModel">
-        <Stack direction="horizontal" className="kb-header mb-2 p-2">
-          <Button borderRadius={"md"} className="brand-icon mx-2">
-            <img src="/asd" alt="" width={"30"} height={"30"} />
+        <Stack direction="horizontal" className="kb-header my-2 p-2">
+          <Button borderRadius={"md"} className="k-brand-icon mx-2">
+            {/* <img src="/asd" alt="" width={"30"} height={"30"} /> */}
           </Button>
           <input
             type="text"
             placeholder="Search..."
             className="kb-search px-2"
           />
-          <Button borderRadius={"md"} className="brand-icon mx-2">
-            <img src="/asd" alt="" width={"30"} height={"30"} />
+          <Button borderRadius={"md"} className="kb-settings-icon mx-2">
+            {/* <img src="/asd" alt="" width={"30"} height={"30"} /> */}
           </Button>
         </Stack>
         <Stack direction="horizontal" className="conceptDiv" gap={1}>
@@ -151,7 +151,7 @@ function MyVerticallyCenteredModal(props) {
           ))}
         </Stack>
 
-        <Stack direction="horizontal" className="conceptPrev my-2" gap={1}>
+        <Stack direction="horizontal" className="conceptPrev my-1" gap={1}>
           {Previews.map((preview) => (
             <img
               width="150px"
@@ -168,7 +168,7 @@ function MyVerticallyCenteredModal(props) {
           ))}
         </Stack>
 
-        <Stack direction="horizontal" className="conceptDiv" gap={1}>
+        <Stack direction="horizontal" className="conceptDiv my-2" gap={1}>
           {Keywords.map((keyword) => (
             <Button
               borderRadius={"md"}
@@ -194,22 +194,26 @@ function MyVerticallyCenteredModal(props) {
           className="kb-header mb-2 p-2 justify-content-between"
         >
           <div>
-            <Button borderRadius={"md"} className="brand-icon mx-2">
-              <img src="/asd" alt="" width={"30"} height={"30"} />
+            <Button className="kb-home mx-2">
+              {/* <img src="/asd" alt="" width={"30"} height={"30"} /> */}
+              {/* <div className="kb-home"></div> */}
             </Button>
-            <Button borderRadius={"md"} className="brand-icon mx-2">
-              <img src="/asd" alt="" width={"30"} height={"30"} />
+            <Button className=" kb-nav-item mx-2">
+              {/* <img src="/asd" alt="" width={"30"} height={"30"} /> */}
+              ABC
             </Button>
-            <Button borderRadius={"md"} className="brand-icon mx-2">
-              <img src="/asd" alt="" width={"30"} height={"30"} />
-            </Button>
-            <Button borderRadius={"md"} className="brand-icon mx-2">
-              <img src="/asd" alt="" width={"30"} height={"30"} />
-            </Button>
+            <Button className="kb-nav-item mx-2">GIF</Button>
+            <Button className="kb-nav-item mx-2">NFTs</Button>
           </div>
           <Stack direction="horizontal" className=" align-items-center">
-            <p className="text-white kb-poweredby">Powered by</p>
-            <img src="/asd" alt="" width={"100"} height={"30"} />
+            <p className="text-white kb-poweredby me-2">Powered by</p>
+            {/* <img
+              src="./../Asset/kulfy-full-logo.svg"
+              alt=""
+              width={"100"}
+              height={"30"}
+            /> */}
+            <div className="poweredbykulfy"></div>
           </Stack>
         </Stack>
       </Modal.Body>

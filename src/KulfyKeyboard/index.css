@@ -83,3 +83,51 @@
   font-size: 12px;
   margin: 0;
 }
+.poweredbykulfy{
+  background-image: url('./Asset/klogo-noshadow.svg');
+  background-repeat: no-repeat;
+background-size: contain;
+  height: 30px;
+  width: 80px;
+}
+.kb-home{
+  background-image: url('./Asset/home_white.svg');
+  background-color: transparent;
+  border: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 0;
+    height: 20px;
+    /* width: 18px; */
+}
+.k-brand-icon{
+  background-image: url('./Asset/k-logo-pink.svg');
+    background-color: transparent;
+    border: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 30px;
+    width: 30px;
+}
+.kb-settings-icon{
+  background-image: url('./Asset/settings.svg');
+    background-color: transparent;
+    border: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 18px;
+    width: 18px;
+}
+.kb-nav-item{
+  background-color: transparent;
+  border: none;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #EDEDED;
+  opacity: .5;
+  font-weight: 700;
+}
+.kb-nav-item:hover{
+  opacity: 1;
+  background-color:#182822;
+}
