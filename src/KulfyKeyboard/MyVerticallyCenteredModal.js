@@ -137,7 +137,9 @@ function MyVerticallyCenteredModal(props) {
             className="kb-search px-2"
             onKeyUp={(e) => handleKeyPress(e)}
           />
-          <Button borderRadius={"md"} className="kb-settings-icon mx-2">
+          <Button 
+          // borderRadius={"md"} 
+          className="kb-settings-icon mx-2">
             {/* <img src="/asd" alt="" width={"30"} height={"30"} /> */}
           </Button>
         </Stack>
@@ -186,7 +188,7 @@ function MyVerticallyCenteredModal(props) {
         <Stack direction="horizontal" className="conceptDiv my-2" gap={1}>
           {Keywords.map((keyword) => (
             <Button
-              borderRadius={"md"}
+              // borderRadius={"md"}
               textTransform="uppercase"
               justifyContent={"center"}
               fontWeight="semibold"
@@ -198,7 +200,7 @@ function MyVerticallyCenteredModal(props) {
               bg="blackAlpha.800"
               color={"white"}
               onClick={(e) => getKulfys(keyword, "popular")}
-              className="kb-tag  rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2 white-space-no-wrap"
+              className="kb-tag   text-uppercase fw-bold border-0  py-2 flex  px-4 me-2 white-space-no-wrap"
             >
               {keyword}
             </Button> 
