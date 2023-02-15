@@ -23,10 +23,7 @@ function MyVerticallyCenteredModal(props) {
     baseURL: "https://api.kulfyapp.com/v5/concepts/getConcepts?language=telugu",
   });
 
-  const kulfyclientGetKulfys = axios.create({
-    baseURL:
-      "https://api.kulfyapp.com/V3/gifs/search?client=keyword_ios&exact=true&sort=latest&keyword=trending&skip=0&limit=20&content=image&language=english",
-  });
+  
 
   useEffect(() => {
     responseGetConcepts();
@@ -34,22 +31,32 @@ function MyVerticallyCenteredModal(props) {
     responseTrendingKeywords();
   }, []);
 
-  const getKulfys = (keyword, sort, e) => {
-    if (keyword == null) {
-      if (localStorage.getItem("searchKeyword")) {
-        localStorage.setItem("searchKeyword", "trending");
-      }
-      keyword = localStorage.getItem("searchKeyword");
-      setSearchWord(keyword);
-    } else {
-      localStorage.setItem("searchKeyword", keyword);
+  const handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+      getKulfys(event.target.value,"popular")
     }
+  }
+  const getKulfys = (skeyword, sort) => {
+    if (skeyword == null) {
+      if (localStorage.getItem("searchKeyword")==null) {
+        localStorage.setItem("searchKeyword", "trending");
+        skeyword="trending";
+      }
+      else{ skeyword = localStorage.getItem("searchKeyword");}
+     
+    }
+    
 
     if (sort == null) {
       sort = "popular";
     }
-
-    kulfyclientGetKulfys.get("", {}).then((response) => {
+    const kulfyclientGetKulfys= axios.create({
+      baseURL:
+        "https://api.kulfyapp.com/V3/gifs/search?client=keyword_ios&exact=true&sort=latest&skip=0&limit=20&content=image&language=english&keywords="+skeyword,
+    });
+    kulfyclientGetKulfys.get("", {params: {
+      keyword: skeyword
+    }}).then((response) => {
       console.log("response data ", response.data);
       console.log("response data nfts", response.data.data);
       // setKulfys(response.data.data);
@@ -60,7 +67,7 @@ function MyVerticallyCenteredModal(props) {
       console.log("Image lists ", response.data.data, keywordslist);
 
       let previewlist = [];
-      for (let i = 0; i < 10; i++) {
+      for (let i = 1; i < 10; i++) {
         if (kulfyslist[i]) previewlist.push(kulfyslist[i].image_url);
         console.log("urls ", kulfyslist[i]);
         //this.setState({ previews: previewlist });
@@ -128,6 +135,7 @@ function MyVerticallyCenteredModal(props) {
             type="text"
             placeholder="Search..."
             className="kb-search px-2"
+            onKeyUp={(e) => handleKeyPress(e)}
           />
           <Button borderRadius={"md"} className="kb-settings-icon mx-2">
             {/* <img src="/asd" alt="" width={"30"} height={"30"} /> */}
@@ -143,7 +151,7 @@ function MyVerticallyCenteredModal(props) {
               whiteSpace={"nowrap"}
               minWidth="fit-content"
               color={"white"}
-              /*onClick={(e) => getCategories(concept, e)}*/
+              onClick={(e) => getKulfys(concept, "popular")}
               className="kb-tag rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2  white-space-no-wrap"
             >
               {concept}
@@ -152,7 +160,13 @@ function MyVerticallyCenteredModal(props) {
         </Stack>
 
         <Stack direction="horizontal" className="conceptPrev my-1" gap={1}>
-          {Previews.map((preview) => (
+          {Previews.length == 0 &&
+        <h2>
+         No records found
+        </h2>
+        }
+          {Previews.length >0 &&
+          Previews.map((preview) => (
             <img
               width="150px"
               height="150px"
@@ -182,7 +196,7 @@ function MyVerticallyCenteredModal(props) {
               m={1}
               bg="blackAlpha.800"
               color={"white"}
-              /* onClick={(e) => getKulfys(keyword, "popular", e)}*/
+              onClick={(e) => getKulfys(keyword, "popular")}
               className="kb-tag rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2 white-space-no-wrap"
             >
               {keyword}
