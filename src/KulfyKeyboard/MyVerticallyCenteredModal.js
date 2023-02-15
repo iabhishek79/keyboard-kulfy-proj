@@ -152,7 +152,8 @@ function MyVerticallyCenteredModal(props) {
               minWidth="fit-content"
               color={"white"}
               onClick={(e) => getKulfys(concept, "popular")}
-              className="kb-tag rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2  white-space-no-wrap"
+              className="kb-tag  rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2  white-space-no-wrap"
+              /* TODO: add class 'activated' to </Button>  above when you want to highlight the selection.*/
             >
               {concept}
             </Button>
@@ -197,10 +198,11 @@ function MyVerticallyCenteredModal(props) {
               bg="blackAlpha.800"
               color={"white"}
               onClick={(e) => getKulfys(keyword, "popular")}
-              className="kb-tag rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2 white-space-no-wrap"
+              className="kb-tag  rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2 white-space-no-wrap"
             >
               {keyword}
-            </Button>
+            </Button> 
+            /* TODO: add class 'activated' to </Button>  above when you want to highlight the selection.*/
           ))}
         </Stack>
         <Stack
@@ -209,15 +211,18 @@ function MyVerticallyCenteredModal(props) {
         >
           <div>
             <Button className="kb-home mx-2">
-              {/* <img src="/asd" alt="" width={"30"} height={"30"} /> */}
+              {/* TODO: add class 'activated' to </Button>  above when you want to highlight the selection. */}
               {/* <div className="kb-home"></div> */}
             </Button>
-            <Button className=" kb-nav-item mx-2">
-              {/* <img src="/asd" alt="" width={"30"} height={"30"} /> */}
-              ABC
-            </Button>
-            <Button className="kb-nav-item mx-2">GIF</Button>
+            
+            {/* <Button className=" kb-nav-item activated mx-2"> */}
+              {/* TODO: add class 'activated' to </Button>  above when you want to highlight the selection. */}
+              {/* ABC
+            </Button> */}
+            <Button className="kb-nav-item activated mx-2">GIF</Button>
+            {/* TODO: add class 'activated' to </Button>  above when you want to highlight the selection. */}
             <Button className="kb-nav-item mx-2">NFTs</Button>
+            {/* TODO: add class 'activated' to </Button>  above when you want to highlight the selection. */}
           </div>
           <Stack direction="horizontal" className=" align-items-center">
             <p className="text-white kb-poweredby me-2">Powered by</p>
