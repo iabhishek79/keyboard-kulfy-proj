@@ -9,7 +9,7 @@ import "./index.css";
 
 function MyVerticallyCenteredModal(props) {
   const [Concepts, setConcepts] = useState([]);
-
+ const [ActiveButton, setActiveButton] = useState("trending");
   const [Previews, setPreviews] = useState([]);
 
   const [Keywords, setKeywords] = useState([]);
@@ -43,7 +43,7 @@ function MyVerticallyCenteredModal(props) {
         skeyword="trending";
       }
       else{ skeyword = localStorage.getItem("searchKeyword");}
-     
+      setActiveButton(skeyword);
     }
     
 
@@ -152,7 +152,7 @@ function MyVerticallyCenteredModal(props) {
               minWidth="fit-content"
               color={"white"}
               onClick={(e) => getKulfys(concept, "popular")}
-              className="kb-tag rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2  white-space-no-wrap"
+              className= {`kb-tag rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2  white-space-no-wrap ${ActiveButton===concept?'activated':''}`}
             >
               {concept}
             </Button>
@@ -160,7 +160,7 @@ function MyVerticallyCenteredModal(props) {
         </Stack>
 
         <Stack direction="horizontal" className="conceptPrev my-1" gap={1}>
-          {Previews.length == 0 &&
+          {Previews.length === 0 &&
         <h2>
          No records found
         </h2>
@@ -197,7 +197,7 @@ function MyVerticallyCenteredModal(props) {
               bg="blackAlpha.800"
               color={"white"}
               onClick={(e) => getKulfys(keyword, "popular")}
-              className="kb-tag rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2 white-space-no-wrap"
+              className={`kb-tag rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2 white-space-no-wrap ${ActiveButton===keyword?'activated':''}`}
             >
               {keyword}
             </Button>
