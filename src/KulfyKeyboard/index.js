@@ -18,7 +18,7 @@ function KulfyKeyboard() {
         className="input-el"
         type="text"
         onClick={() => setModalShow(true)}
-        placeholder="Disabled readonly input"
+        placeholder="Type here"
         aria-label="Disabled input example"
         readOnly
       />
