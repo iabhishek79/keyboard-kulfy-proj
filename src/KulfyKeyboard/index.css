@@ -153,3 +153,25 @@ background-size: contain;
   opacity: 1 !important;
     /* background-color: #182822 !important; */
 }
+.kb-filter{
+  padding: 2px;
+    border-radius: 100px;
+    background: #EAEAEA;
+    z-index: 1000;
+      top: 120px;
+      right: 20px;
+      position: absolute;
+      box-shadow: 4px 4px 14px 0px #ccc;
+}
+.kb-filter-option{
+  border-radius: 100px;
+  background: transparent;
+    outline: none;
+    border: none;
+    padding: 10px 11px;
+      font-weight: 700;
+      font-size: 12px;
+}
+.kb-filter-option.selected {
+  background: #fff;
+}

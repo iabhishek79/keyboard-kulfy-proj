@@ -9,7 +9,7 @@ import "./index.css";
 
 function MyVerticallyCenteredModal(props) {
   const [Concepts, setConcepts] = useState([]);
- const [ActiveButton, setActiveButton] = useState("");
+  const [ActiveButton, setActiveButton] = useState("");
   const [Previews, setPreviews] = useState([]);
 
   const [Keywords, setKeywords] = useState([]);
@@ -23,8 +23,6 @@ function MyVerticallyCenteredModal(props) {
     baseURL: "https://api.kulfyapp.com/v5/concepts/getConcepts?language=telugu",
   });
 
-  
-
   useEffect(() => {
     responseGetConcepts();
     getKulfys();
@@ -32,47 +30,51 @@ function MyVerticallyCenteredModal(props) {
   }, []);
 
   const handleKeyPress = (event) => {
-    if(event.key === 'Enter'){
-      getKulfys(event.target.value,"popular")
+    if (event.key === "Enter") {
+      getKulfys(event.target.value, "popular");
     }
-  }
+  };
   const getKulfys = (skeyword, sort) => {
     if (skeyword == null) {
-      if (localStorage.getItem("searchKeyword")==null) {
+      if (localStorage.getItem("searchKeyword") == null) {
         localStorage.setItem("searchKeyword", "trending");
-        skeyword="trending";
+        skeyword = "trending";
+      } else {
+        skeyword = localStorage.getItem("searchKeyword");
       }
-      else{ skeyword = localStorage.getItem("searchKeyword");}
-     
     }
     setActiveButton(skeyword);
 
     if (sort == null) {
       sort = "popular";
     }
-    const kulfyclientGetKulfys= axios.create({
+    const kulfyclientGetKulfys = axios.create({
       baseURL:
-        "https://api.kulfyapp.com/V3/gifs/search?client=keyword_ios&exact=true&sort=latest&skip=0&limit=20&content=image&language=english&keywords="+skeyword,
+        "https://api.kulfyapp.com/V3/gifs/search?client=keyword_ios&exact=true&sort=latest&skip=0&limit=20&content=image&language=english&keywords=" +
+        skeyword,
     });
-    kulfyclientGetKulfys.get("", {params: {
-      keyword: skeyword
-    }}).then((response) => {
-      // setKulfys(response.data.data);
+    kulfyclientGetKulfys
+      .get("", {
+        params: {
+          keyword: skeyword,
+        },
+      })
+      .then((response) => {
+        // setKulfys(response.data.data);
 
-      let kulfyslist = response.data.data;
-      let keywordslist = Keywords;
+        let kulfyslist = response.data.data;
+        let keywordslist = Keywords;
 
+        let previewlist = [];
+        for (let i = 1; i < 10; i++) {
+          if (kulfyslist[i]) previewlist.push(kulfyslist[i].image_url);
+          //this.setState({ previews: previewlist });
+        }
+        setPreviews(previewlist);
 
-      let previewlist = [];
-      for (let i = 1; i < 10; i++) {
-        if (kulfyslist[i]) previewlist.push(kulfyslist[i].image_url);
-        //this.setState({ previews: previewlist });
-      }
-      setPreviews(previewlist);
-
-      // console.log("response data nfts status", Kulfys);
-      // setPosts([response.data, ...posts]);
-    });
+        // console.log("response data nfts status", Kulfys);
+        // setPosts([response.data, ...posts]);
+      });
   };
   const responseTrendingKeywords = () => {
     kulfyclientTrendingWords.get("", {}).then((response) => {
@@ -129,9 +131,10 @@ function MyVerticallyCenteredModal(props) {
             className="kb-search px-2"
             onKeyUp={(e) => handleKeyPress(e)}
           />
-          <Button 
-          // borderRadius={"md"} 
-          className="kb-settings-icon mx-2">
+          <Button
+            // borderRadius={"md"}
+            className="kb-settings-icon mx-2"
+          >
             {/* <img src="/asd" alt="" width={"30"} height={"30"} /> */}
           </Button>
         </Stack>
@@ -146,34 +149,36 @@ function MyVerticallyCenteredModal(props) {
               minWidth="fit-content"
               color={"white"}
               onClick={(e) => getKulfys(concept, "popular")}
-              className={`kb-tag  rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2  white-space-no-wrap ${ActiveButton == concept? 'activated':''}` }
-              >
+              className={`kb-tag  rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2  white-space-no-wrap ${
+                ActiveButton == concept ? "activated" : ""
+              }`}
+            >
               {concept}
             </Button>
           ))}
         </Stack>
 
         <Stack direction="horizontal" className="conceptPrev my-1" gap={1}>
-          {Previews.length === 0 &&
-        <h2>
-         No records found
-        </h2>
-        }
-          {Previews.length >0 &&
-          Previews.map((preview) => (
-            <img
-              width="150px"
-              height="150px"
-              src={preview}
-              boxSize="150px"
-              p={1}
-              onClick={(e) => copyToClip(preview)}
-              borderRadius="md"
-              objectFit="cover"
-              className="h-48 p-1 w-48 rounded-4 obj-cover "
-              alt=""
-            />
-          ))}
+          <div className="kb-filter">
+            <button className="kb-filter-option selected">Latest</button>
+            <button className="kb-filter-option">Popular</button>
+          </div>
+          {Previews.length === 0 && <h2>No records found</h2>}
+          {Previews.length > 0 &&
+            Previews.map((preview) => (
+              <img
+                width="150px"
+                height="150px"
+                src={preview}
+                boxSize="150px"
+                p={1}
+                onClick={(e) => copyToClip(preview)}
+                borderRadius="md"
+                objectFit="cover"
+                className="h-48 p-1 w-48 rounded-4 obj-cover "
+                alt=""
+              />
+            ))}
         </Stack>
 
         <Stack direction="horizontal" className="conceptDiv my-2" gap={1}>
@@ -191,11 +196,13 @@ function MyVerticallyCenteredModal(props) {
               bg="blackAlpha.800"
               color={"white"}
               onClick={(e) => getKulfys(keyword, "popular")}
-              className={`kb-tag   text-uppercase fw-bold border-0  py-2 flex  px-4 me-2 white-space-no-wrap ${ActiveButton == keyword? 'activated':''}` }
+              className={`kb-tag   text-uppercase fw-bold border-0  py-2 flex  px-4 me-2 white-space-no-wrap ${
+                ActiveButton == keyword ? "activated" : ""
+              }`}
             >
               {keyword}
-            </Button> 
-           ))}
+            </Button>
+          ))}
         </Stack>
         <Stack
           direction="horizontal"
@@ -206,10 +213,10 @@ function MyVerticallyCenteredModal(props) {
               {/* TODO: add class 'activated' to </Button>  above when you want to highlight the selection. */}
               {/* <div className="kb-home"></div> */}
             </Button>
-            
+
             {/* <Button className=" kb-nav-item activated mx-2"> */}
-              {/* TODO: add class 'activated' to </Button>  above when you want to highlight the selection. */}
-              {/* ABC
+            {/* TODO: add class 'activated' to </Button>  above when you want to highlight the selection. */}
+            {/* ABC
             </Button> */}
             <Button className="kb-nav-item activated mx-2">GIF</Button>
             {/* TODO: add class 'activated' to </Button>  above when you want to highlight the selection. */}
