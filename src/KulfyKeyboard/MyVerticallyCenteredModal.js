@@ -10,6 +10,8 @@ import "./index.css";
 function MyVerticallyCenteredModal(props) {
   const [Concepts, setConcepts] = useState([]);
   const [ActiveButton, setActiveButton] = useState("");
+  const [FilterButton, setFilterButton] = useState("latest");
+
   const [Previews, setPreviews] = useState([]);
 
   const [Keywords, setKeywords] = useState([]);
@@ -31,10 +33,10 @@ function MyVerticallyCenteredModal(props) {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      getKulfys(event.target.value, "popular");
+      getKulfys(event.target.value);
     }
   };
-  const getKulfys = (skeyword, sort) => {
+  const getKulfys = (skeyword) => {
     if (skeyword == null) {
       if (localStorage.getItem("searchKeyword") == null) {
         localStorage.setItem("searchKeyword", "trending");
@@ -43,14 +45,20 @@ function MyVerticallyCenteredModal(props) {
         skeyword = localStorage.getItem("searchKeyword");
       }
     }
-    setActiveButton(skeyword);
-
-    if (sort == null) {
-      sort = "popular";
+    var sort="";
+    if (localStorage.getItem("sort") == null) {
+      localStorage.setItem("sort", "latest");
+      sort = "latest";
+    } else {
+      sort = localStorage.getItem("sort");
     }
+    setActiveButton(skeyword);
+    setFilterButton(sort);
+    console.log(sort);
+    
     const kulfyclientGetKulfys = axios.create({
       baseURL:
-        "https://api.kulfyapp.com/V3/gifs/search?client=keyword_ios&exact=true&sort=latest&skip=0&limit=20&content=image&language=english&keywords=" +
+        "https://api.kulfyapp.com/V3/gifs/search?client=keyword_ios&exact=true&sort="+sort+"&skip=0&limit=20&content=image&language=english&keywords=" +
         skeyword,
     });
     kulfyclientGetKulfys
@@ -82,6 +90,14 @@ function MyVerticallyCenteredModal(props) {
       //this.setState({ keywords: response.data["TELUGU"].trending });
       // setPosts([response.data, ...posts]);
     });
+  };
+
+  const applysort=(sort)=>{
+    
+    setFilterButton(sort);
+    localStorage.setItem("sort", sort);
+    getKulfys();
+    
   };
   const copyToClip = (src) => {
     copyImageToClipboard(src)
@@ -148,7 +164,7 @@ function MyVerticallyCenteredModal(props) {
               whiteSpace={"nowrap"}
               minWidth="fit-content"
               color={"white"}
-              onClick={(e) => getKulfys(concept, "popular")}
+              onClick={(e) => getKulfys(concept)}
               className={`kb-tag  rounded text-uppercase fw-bold border-0  py-2 flex  px-4 me-2  white-space-no-wrap ${
                 ActiveButton == concept ? "activated" : ""
               }`}
@@ -160,8 +176,8 @@ function MyVerticallyCenteredModal(props) {
 
         <Stack direction="horizontal" className="conceptPrev my-1" gap={1}>
           <div className="kb-filter">
-            <button className="kb-filter-option selected">Latest</button>
-            <button className="kb-filter-option">Popular</button>
+            <button className={`kb-filter-option ${ FilterButton == 'latest' ? "selected" : "" }`}  onClick={(e) => applysort("latest")}>Latest</button>
+            <button className={`kb-filter-option ${ FilterButton == 'popular' ? "selected" : "" }`} onClick={(e) => applysort("popular")}>Popular</button>
           </div>
           {Previews.length === 0 && <h2>No records found</h2>}
           {Previews.length > 0 &&
@@ -195,7 +211,7 @@ function MyVerticallyCenteredModal(props) {
               m={1}
               bg="blackAlpha.800"
               color={"white"}
-              onClick={(e) => getKulfys(keyword, "popular")}
+              onClick={(e) => getKulfys(keyword)}
               className={`kb-tag   text-uppercase fw-bold border-0  py-2 flex  px-4 me-2 white-space-no-wrap ${
                 ActiveButton == keyword ? "activated" : ""
               }`}
