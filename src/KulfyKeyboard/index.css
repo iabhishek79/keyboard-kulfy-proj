@@ -14,6 +14,7 @@
     background-color: #182822;
   }
   .imgdiv{
+    
     position: relative;
     margin-top: 0px;
     height:400px;
@@ -23,6 +24,7 @@
   }
   .div-p-img
   {
+    
     margin-top: 100px;
     margin-left: 17%;
     height: 600px;
@@ -41,4 +43,10 @@
     overflow-x: scroll ;
     overflow-y: hidden;
     cursor:pointer
+  }
+  .hide_div{
+    display: none;
+  }
+  .display_div{
+    display: none;
   }

@@ -25,7 +25,7 @@ const kulfyclientTrendingWords = axios.create({
       
 const kulfyclientGetKulfys = axios.create({
     baseURL:
-      "https://api.kulfyapp.com/V3/gifs/search?client=keyword_ios&exact=true&sort=latest&keyword=trending&skip=0&limit=20&content=image&language=english",
+      "https://api.kulfyapp.com/V3/gifs/search?client=keyword_ios&exact=true&sort=latest&keyword="+searchWord+"&skip=0&limit=20&content=image&language=telugu",
   });
   
     
@@ -42,70 +42,64 @@ const kulfyclientGetKulfys = axios.create({
         localStorage.setItem("searchKeyword", "trending");
       }
       keyword = localStorage.getItem("searchKeyword");
-      setSearchWord(keyword);
+      
     } else {
       localStorage.setItem("searchKeyword", keyword);
     }
+    setSearchWord(keyword);
 
     if (sort == null) {
       sort = "popular";
     }
-
-
-    kulfyclientGetKulfys
+    axios.create({
+      baseURL:
+        "https://api.kulfyapp.com/V3/gifs/search?client=keyword_ios&exact=true&sort=latest&keyword="+keyword+"&skip=0&limit=20&content=image&language=telugu",
+    })
       .get("", {})
       .then((response) => {
-        console.log("response data ", response.data);
-        console.log("response data nfts", response.data.data);
-        // setKulfys(response.data.data);
-
+      
         let kulfyslist = response.data.data;
         let keywordslist = Keywords;
 
-        console.log("Image lists ", response.data.data, keywordslist);
 
         let previewlist = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 1; i <= kulfyslist.length; i++) {
           if (kulfyslist[i]) previewlist.push(kulfyslist[i].image_url);
-          console.log("urls ", kulfyslist[i]);
-          //this.setState({ previews: previewlist });
+          
         }
+       
+        
         setPreviews(previewlist);
 
-        // console.log("response data nfts status", Kulfys);
-        // setPosts([response.data, ...posts]);
+        console.log(kulfyslist);
+
       });
   };
   const responseTrendingKeywords = () => {
     kulfyclientTrendingWords.get("", {}).then((response) => {
-      console.log("response data ", response.data);
-      console.log("response data ", response.data["TELUGU"].trending);
       setKeywords(response.data["TELUGU"].trending);
       //this.setState({ keywords: response.data["TELUGU"].trending });
       // setPosts([response.data, ...posts]);
     });
   };
   const copyToClip = (src) => {
-copyImageToClipboard(src)
-  .then(() => {
+    
+//copyImageToClipboard(src)
+   
     setIsShow(true);
     setTimeout(() => {
       setIsShow(false);
+      props.setGifModel(src);
     }, 1000);
 
-  })
-  .catch((e) => {
-    console.log('Error: ', e.message)
-  })
 };
   const responseGetConcepts = () => {
     kulfyclientGetConcepts.get("", {}).then((response) => {
-      console.log("response data 123", response.data);
       let conceptsarray = [];
       for (var i = 0; i < response.data.data.length; i++) {
         conceptsarray.push(response.data.data[i].concept);
       }
-      console.log("response data ", conceptsarray);
+     
       setConcepts(conceptsarray);
       //this.setState({ concepts: conceptsarray });
       // setPosts([response.data, ...posts]);
@@ -119,7 +113,7 @@ copyImageToClipboard(src)
       centered
     >
       <div className='copybtn'style={{'visibility':` ${isShow ? 'visible' : 'hidden'}`}}>
-      <Button variant="secondary">Copied!!</Button>
+      <Button variant="secondary">Selected!!</Button>
       </div>
      
       <Modal.Body className='conceptModel'>
@@ -137,7 +131,7 @@ copyImageToClipboard(src)
               m={1}
               bg="blackAlpha.800"
               color={"white"}
-              /*onClick={(e) => getCategories(concept, e)}*/
+              onClick={(e) => getKulfys(concept, e)}
               className="tag rounded uppercase  justify-center font-semibold w-min whitespace-nowrap py-2 flex items-center px-4 m-2 bg-slate-800 hover:bg-slate-500 text-white"
             >
               {concept}
@@ -175,7 +169,7 @@ copyImageToClipboard(src)
                     m={1}
                     bg="blackAlpha.800"
                     color={"white"}
-                   /* onClick={(e) => getKulfys(keyword, "popular", e)}*/
+                   onClick={(e) => getKulfys(keyword, "popular", e)}
                     className="tag rounded uppercase  justify-center font-semibold w-min whitespace-nowrap py-2 flex items-center px-4 m-2 bg-slate-800 hover:bg-slate-500 text-white"
                   >
                     {keyword}

@@ -6,12 +6,34 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import "./index.css";
 import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
 
-function KulfyKeyboard() {
-
-    const [modalShow, setModalShow] = React.useState(false);
-    
+function KulfyKeyboard(prop) {
+  var op= false;
+  var gifdata="";
+  const setModel=()=>{
+    setModalShow(false);
+    prop.setParrentModel(false);
+    prop.setParrentGifModel(gifdata);
+  }
+  if(prop.opengif)
+  {
+    op=true;
+  }
+  else  
+  {
+    op=false;
+  }
+  
+  const [modalShow, setModalShow] = React.useState(op);
+  
+  const setGifModel=(data)=>
+  {
+    gifdata=data;
+    setModel();
+  }
   return (
-    <div className="nonsense">
+    
+    <div className={"nonsense "+ (prop.opengif? "hide_div" : "display_div") } >
+      { !modalShow &&
         <div className="div-p-img">
              <div className="imgdiv" />
         <Form.Control
@@ -22,10 +44,14 @@ function KulfyKeyboard() {
         aria-label="Disabled input example"
         readOnly
       />
-    </div>  
+    </div>
+    }  
+    
     <MyVerticallyCenteredModal
         show={modalShow}
-        onHide={() => setModalShow(false)}/>
+        onHide={(e) => setModel()}
+        setGifModel={setGifModel}
+        />
     </div>
     
   );
