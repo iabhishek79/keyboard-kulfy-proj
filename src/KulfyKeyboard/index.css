@@ -50,3 +50,41 @@
   .display_div{
     display: none;
   }
+.bg-color1{
+ background-color: #484848 !important;
+}
+.bg-color2{
+background-color: #5F5F5F !important;
+}
+.form-control::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white !important;
+  opacity: 1;
+  /* Firefox */
+}
+.searchtext{
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px;
+}
+.tags{
+  background-color: #fff !important;
+  color: #1F1F1F !important;
+  border:none !important;
+  text-transform: uppercase;
+  font-size: 12;
+  padding: 5px 8px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  width: min-content;
+  align-items: center;
+}
+.tags:hover{
+  background-color: #484848 !important;
+    color: #fff !important;
+}
+.tag-selected{
+  background-color: #484848 !important;
+    color: #fff !important;
+}
