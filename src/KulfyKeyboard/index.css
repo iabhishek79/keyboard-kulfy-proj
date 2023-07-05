@@ -42,7 +42,7 @@
     height: 150px;
     overflow-x: scroll ;
     overflow-y: hidden;
-    cursor:pointer
+    cursor:pointer;
   }
   .hide_div{
     display: none;
@@ -90,13 +90,20 @@ background-color: #5F5F5F !important;
 }
 .settingPopup{
   z-index: 99;
-  border: 1px solid #5F5F5F;
+  border: 1px solid #d5d5d5;
   min-height: 150px;
   min-width: 125px;
   position: absolute;
-  background: darkgrey;
+  background: #fff;
+  border-radius: 6px;
   top: 20%;
-  left: 82%;
-  padding: 5px;
+  left: 76%;
+  padding: 16px;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+      -moz-box-shadow: 0 10px 6px -6px #777;
+      box-shadow: 0 10px 6px -6px #777;
 
+}
+.form-check{
+  margin: 10px;
 }

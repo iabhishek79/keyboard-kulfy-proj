@@ -97,10 +97,11 @@ function MyVerticallyCenteredModal(props) {
     }, 1000);
   };
   const openSettings = () => {
-    if(isSettingPopup)
-    {setIsSettingPopup(false)}
-    else{ setIsSettingPopup(true);}
-  
+    if (isSettingPopup) {
+      setIsSettingPopup(false);
+    } else {
+      setIsSettingPopup(true);
+    }
   };
   const handleChange = (keyword, e) => {
     if (e.key === "Enter") {
@@ -133,11 +134,76 @@ function MyVerticallyCenteredModal(props) {
         <Button variant="secondary">Selected!!</Button>
       </div>
       <div
-        className="settingPopup"
+        className="settingPopup mfp-move-from-top"
         style={{ display: ` ${isSettingPopup ? "block" : "none"}` }}
       >
-        <input type="checkbox"/>Tamil
-       
+        <h6 className="mb-3">Language Settings</h6>
+        <div class="form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label class="form-check-label text-uppercase" for="flexCheckDefault">
+            Tamil
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label class="form-check-label text-uppercase" for="flexCheckDefault">
+            Telugu
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label class="form-check-label text-uppercase" for="flexCheckDefault">
+            English
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label class="form-check-label text-uppercase" for="flexCheckDefault">
+            Malayalam
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label class="form-check-label text-uppercase" for="flexCheckDefault">
+            Nigeria
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label class="form-check-label text-uppercase" for="flexCheckDefault">
+            Hindi
+          </label>
+        </div>
       </div>
 
       <Modal.Body className="conceptModel">
@@ -165,7 +231,12 @@ function MyVerticallyCenteredModal(props) {
               onKeyDown={(e) => handleChange(e.target.value, e)}
             />
           </InputGroup>
-          <Image src={settingsicon} onClick={(e) => openSettings()}width={28} className="m-2 " />
+          <Image
+            src={settingsicon}
+            onClick={(e) => openSettings()}
+            width={28}
+            className="m-2 "
+          />
         </Stack>
         <Stack direction="horizontal" className="conceptDiv" gap={1}>
           {Concepts.map((concept) => (
