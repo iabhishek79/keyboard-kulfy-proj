@@ -12,6 +12,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
 import "./index.css";
+import Checkbox from "react-bootstrap/InputGroup";
 
 function MyVerticallyCenteredModal(props) {
   const [Concepts, setConcepts] = useState([]);
@@ -21,6 +22,7 @@ function MyVerticallyCenteredModal(props) {
   const [Keywords, setKeywords] = useState([]);
   const [searchWord, setSearchWord] = useState("trending");
   const [isShow, setIsShow] = useState(false);
+  const [isSettingPopup, setIsSettingPopup] = useState(false);
 
   const kulfyclientTrendingWords = axios.create({
     baseURL: "https://api.kulfyapp.com/V3/getConfiguration",
@@ -94,6 +96,17 @@ function MyVerticallyCenteredModal(props) {
       props.setGifModel(src);
     }, 1000);
   };
+  const openSettings = () => {
+    if(isSettingPopup)
+    {setIsSettingPopup(false)}
+    else{ setIsSettingPopup(true);}
+  
+  };
+  const handleChange = (keyword, e) => {
+    if (e.key === "Enter") {
+      getKulfys(keyword, "popular", e);
+    }
+  };
   const responseGetConcepts = () => {
     kulfyclientGetConcepts.get("", {}).then((response) => {
       let conceptsarray = [];
@@ -119,6 +132,13 @@ function MyVerticallyCenteredModal(props) {
       >
         <Button variant="secondary">Selected!!</Button>
       </div>
+      <div
+        className="settingPopup"
+        style={{ display: ` ${isSettingPopup ? "block" : "none"}` }}
+      >
+        <input type="checkbox"/>Tamil
+       
+      </div>
 
       <Modal.Body className="conceptModel">
         <Stack direction="horizontal" className="bg-color1 text-white p-1">
@@ -142,9 +162,10 @@ function MyVerticallyCenteredModal(props) {
               placeholder="Search kulfy"
               aria-label="Username"
               aria-describedby="basic-addon1"
+              onKeyDown={(e) => handleChange(e.target.value, e)}
             />
           </InputGroup>
-          <Image src={settingsicon} width={28} className="m-2 " />
+          <Image src={settingsicon} onClick={(e) => openSettings()}width={28} className="m-2 " />
         </Stack>
         <Stack direction="horizontal" className="conceptDiv" gap={1}>
           {Concepts.map((concept) => (
