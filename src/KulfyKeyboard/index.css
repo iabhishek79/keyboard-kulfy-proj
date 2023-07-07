@@ -43,7 +43,9 @@
     overflow-x: scroll ;
     overflow-y: hidden;
     cursor:pointer;
+    background-color: #F6F6F6;
   }
+
   .hide_div{
     display: none;
   }
@@ -55,6 +57,9 @@
 }
 .bg-color2{
 background-color: #5F5F5F !important;
+}
+.bg-color3{
+  background-color: #F6F6F6;
 }
 .form-control::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */

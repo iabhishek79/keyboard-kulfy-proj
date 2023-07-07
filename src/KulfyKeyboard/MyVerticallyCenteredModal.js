@@ -7,6 +7,8 @@ import { copyImageToClipboard } from "copy-image-clipboard";
 import kicon from "./Asset/k-logo-pink.svg";
 import settingsicon from "./Asset/settings.svg";
 import searchicon from "./Asset/search-icon.svg";
+import homeicon from "./Asset/home_gray.svg";
+import klogo from "./Asset/kulfy-full-logo.svg";
 import Image from "react-bootstrap/Image";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -206,11 +208,11 @@ function MyVerticallyCenteredModal(props) {
         </div>
       </div>
 
-      <Modal.Body className="conceptModel">
-        <Stack direction="horizontal" className="bg-color1 text-white p-1">
-          <Image src={kicon} width={36} height={36} rounded className="m-1" />
+      <Modal.Body className="conceptModel p-0">
+        <Stack direction="horizontal" className="bg-color1 text-white p-0">
+          <Image src={kicon} width={36} height={36} rounded className="m-2" />
           <InputGroup
-            className=" bg-color2 border-0 rounded-1  "
+            className=" bg-color2 border-0 rounded-1 mt-1 mb-1"
             bg={"#5F5F5F"}
           >
             <InputGroup.Text
@@ -249,22 +251,23 @@ function MyVerticallyCenteredModal(props) {
             </Button>
           ))}
         </Stack>
-
-        <Stack direction="horizontal" className="conceptPrev" gap={1}>
-          {Previews.map((preview) => (
-            <img
-              width="150px"
-              src={preview}
-              boxSize="150px"
-              px={1}
-              onClick={(e) => copyToClip(preview)}
-              borderRadius="md"
-              objectFit="cover"
-              className="h-48 px-1 w-48 rounded object-cover"
-              alt=""
-            />
-          ))}
-        </Stack>
+        <div className="p-2 bg-color3">
+          <Stack direction="horizontal" className="conceptPrev p-2" gap={1}>
+            {Previews.map((preview) => (
+              <img
+                width="150px"
+                src={preview}
+                boxSize="150px"
+                px={1}
+                onClick={(e) => copyToClip(preview)}
+                borderRadius="md"
+                objectFit="cover"
+                className="h-48 px-1 w-48 rounded object-cover"
+                alt=""
+              />
+            ))}
+          </Stack>
+        </div>
 
         <Stack direction="horizontal" className="conceptDiv" gap={1}>
           {Keywords.map((keyword) => (
@@ -276,6 +279,33 @@ function MyVerticallyCenteredModal(props) {
               {keyword}
             </Button>
           ))}
+        </Stack>
+        <Stack
+          direction="horizontal"
+          className="bg-color1 text-white p-0 justify-content-between"
+        >
+          <Stack direction="horizontal">
+            <Image src={homeicon} width={24} height={24} className="m-3" />
+            <a
+              href=""
+              className="text-white text-decoration-none m-sm-2 fw-bold"
+            >
+              GIF
+            </a>
+          </Stack>
+
+          <Stack
+            direction="horizontal"
+            className=" align-items-center justify-content-center"
+          >
+            <p className="m-0 text-white-50">Powered by</p>
+            <Image
+              src={klogo}
+              onClick={(e) => openSettings()}
+              height={42}
+              className="m-2 "
+            />
+          </Stack>
         </Stack>
       </Modal.Body>
     </Modal>
