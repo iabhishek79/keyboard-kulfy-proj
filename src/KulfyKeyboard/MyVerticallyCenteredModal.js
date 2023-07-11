@@ -17,6 +17,12 @@ import "./index.css";
 import Checkbox from "react-bootstrap/InputGroup";
 
 function MyVerticallyCenteredModal(props) {
+  var apiLanguage="";
+  var langu=[{lang:"tamil",check:false},{lang:"telugu",check:true},
+  {lang:"malayalam",check:false},{lang:"pakistan",check:false},
+  {lang:"nigeria",check:false},{lang:"hindi",check:false}];
+
+  
   const [Concepts, setConcepts] = useState([]);
 
   const [Previews, setPreviews] = useState([]);
@@ -25,7 +31,8 @@ function MyVerticallyCenteredModal(props) {
   const [searchWord, setSearchWord] = useState("trending");
   const [isShow, setIsShow] = useState(false);
   const [isSettingPopup, setIsSettingPopup] = useState(false);
-
+ 
+  const [language,setLanguage] =useState([]);
   const kulfyclientTrendingWords = axios.create({
     baseURL: "https://api.kulfyapp.com/V3/getConfiguration",
   });
@@ -40,7 +47,15 @@ function MyVerticallyCenteredModal(props) {
       "&skip=0&limit=20&content=image&language=telugu",
   });
 
+const formApiLanguage=(language)=>{
+var result = [];
+language.forEach(function(l){
+  if (l.check){ result.push(l.lang);}} );
+apiLanguage=result.join(",");
+}
   useEffect(() => {
+    setLanguage(langu);
+    formApiLanguage(langu);
     responseGetConcepts();
     getKulfys();
     responseTrendingKeywords();
@@ -65,7 +80,7 @@ function MyVerticallyCenteredModal(props) {
         baseURL:
           "https://api.kulfyapp.com/V3/gifs/search?client=keyword_ios&exact=true&sort=latest&keyword=" +
           keyword +
-          "&skip=0&limit=20&content=image&language=telugu",
+          "&skip=0&limit=20&content=image,gif&language="+apiLanguage,
       })
       .get("", {})
       .then((response) => {
@@ -79,7 +94,6 @@ function MyVerticallyCenteredModal(props) {
 
         setPreviews(previewlist);
 
-        console.log(kulfyslist);
       });
   };
   const responseTrendingKeywords = () => {
@@ -110,6 +124,28 @@ function MyVerticallyCenteredModal(props) {
       getKulfys(keyword, "popular", e);
     }
   };
+  const handleCheck=(e)=>
+  {
+    var noChecks=true;
+    language.forEach((lang,index)=>{
+    if(lang.check)
+    {
+      noChecks=false;
+    }
+      if(lang.lang==e.target.value)
+      {
+        language[index].check=e.target.checked;
+      }
+    });
+    if(!e.target.value && noChecks)
+    { 
+      //set telugu language default if no language is selected
+         language[1].check=true;
+    }
+    setLanguage([...language], language);
+    formApiLanguage(language);
+    getKulfys();
+  }
   const responseGetConcepts = () => {
     kulfyclientGetConcepts.get("", {}).then((response) => {
       let conceptsarray = [];
@@ -140,72 +176,23 @@ function MyVerticallyCenteredModal(props) {
         style={{ display: ` ${isSettingPopup ? "block" : "none"}` }}
       >
         <h6 className="mb-3">Language Settings</h6>
-        <div class="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
+        {language.map((langs) => {
+                  return(<div class="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    value={langs.lang}
+                    id="flexCheckDefault"
+                    checked={langs.check}
+                    onChange={(e) => handleCheck(e)}
+                  />
           <label class="form-check-label text-uppercase" for="flexCheckDefault">
-            Tamil
+            {langs.lang}
           </label>
-        </div>
-        <div class="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
-          <label class="form-check-label text-uppercase" for="flexCheckDefault">
-            Telugu
-          </label>
-        </div>
-        <div class="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
-          <label class="form-check-label text-uppercase" for="flexCheckDefault">
-            English
-          </label>
-        </div>
-        <div class="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
-          <label class="form-check-label text-uppercase" for="flexCheckDefault">
-            Malayalam
-          </label>
-        </div>
-        <div class="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
-          <label class="form-check-label text-uppercase" for="flexCheckDefault">
-            Nigeria
-          </label>
-        </div>
-        <div class="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
-          <label class="form-check-label text-uppercase" for="flexCheckDefault">
-            Hindi
-          </label>
-        </div>
+        </div>)
+        })
+      }
+        
       </div>
 
       <Modal.Body className="conceptModel p-0">
